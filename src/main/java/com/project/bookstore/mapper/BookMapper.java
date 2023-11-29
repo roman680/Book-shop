@@ -3,14 +3,12 @@ package com.project.bookstore.mapper;
 import com.project.bookstore.model.Book;
 import com.project.bookstore.model.dto.BookDto;
 import com.project.bookstore.model.dto.CreateBookRequestDto;
+import config.MapperConfig;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(config = MapperConfig.class)
 public interface BookMapper {
-
-    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
     BookDto bookToBookDto(Book book);
 

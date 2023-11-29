@@ -1,9 +1,13 @@
 package com.project.bookstore.service;
 
+import com.project.bookstore.mapper.BookMapper;
 import com.project.bookstore.model.Book;
+import com.project.bookstore.model.dto.BookDto;
+import com.project.bookstore.model.dto.CreateBookRequestDto;
 import com.project.bookstore.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,24 +15,33 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Override
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public BookDto save(CreateBookRequestDto bookDto) {
+        Book book = bookMapper.createBookRequestDtoToBook(bookDto);
+        Book createdBook = bookRepository.save(book);
+        return bookMapper.bookToBookDto(createdBook);
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDto> findAll() {
+        List<Book> books = bookRepository.findAll();
+        return books.stream()
+                .map(bookMapper::bookToBookDto)
+                .collect(Collectors.toList());
     }
 
-    public Book getBookById(Long id) {
-        return bookRepository.findBookById(id)
+    @Override
+    public BookDto getBookById(Long id) {
+        Book book = bookRepository.findBookById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+        return bookMapper.bookToBookDto(book);
     }
 }
