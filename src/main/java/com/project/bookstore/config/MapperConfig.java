@@ -1,4 +1,4 @@
-package config;
+package com.project.bookstore.config;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.NullValueCheckStrategy;
