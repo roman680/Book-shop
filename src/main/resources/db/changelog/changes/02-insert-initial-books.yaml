@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertBooks
+      author: Roman Denysiuk
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: book aobut Bob
+              - column:
+                  name: author
+                  value: BOB
+              - column:
+                  name: isbn
+                  value: 123213
+              - column:
+                  name: price
+                  value: 19.99
+              - column:
+                  name: description
+                  value: This is a sample book description.
+              - column:
+                  name: coverImage
+                  value: cover1.jpg
+              - column:
+                  name: is_delete
+                  value: false
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: book about alice
+              - column:
+                  name: author
+                  value: Alice
+              - column:
+                  name: isbn
+                  value: 3213213
+              - column:
+                  name: price
+                  value: 24.99
+              - column:
+                  name: description
+                  value: Another sample book description.
+              - column:
+                  name: coverImage
+                  value: cover2.jpg
+              - column:
+                  name: is_delete
+                  value: false

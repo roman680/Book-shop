@@ -33,20 +33,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll() {
-        List<Book> books = bookRepository.findByIsDeletedFalse();
-        return books.stream()
+        return bookRepository.findByIsDeletedFalse().stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public BookDto getBookById(Long id) {
-        Book book = bookRepository.findById(id)
+        return bookRepository.findById(id)
+                .map(bookMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        if (book.isDeleted()) {
-            throw new EntityNotFoundException("Book not found with id: " + id);
-        }
-        return bookMapper.toDto(book);
     }
 
     @Override
