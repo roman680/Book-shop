@@ -4,6 +4,7 @@ import com.project.bookstore.mapper.BookMapper;
 import com.project.bookstore.model.Book;
 import com.project.bookstore.model.dto.BookDto;
 import com.project.bookstore.model.dto.CreateBookRequestDto;
+import com.project.bookstore.model.dto.UpdateBookRequestDto;
 import com.project.bookstore.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -32,7 +33,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll() {
-        List<Book> books = bookRepository.findAll();
+        List<Book> books = bookRepository.findByIsDeletedFalse();
         return books.stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
@@ -40,8 +41,37 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        Book book = bookRepository.findBookById(id)
+        Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+        if (book.isDeleted()) {
+            throw new EntityNotFoundException("Book not found with id: " + id);
+        }
         return bookMapper.toDto(book);
     }
+
+    @Override
+    public Book delete(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+        book.setDeleted(true);
+        return bookRepository.save(book);
+    }
+
+    @Override
+    public BookDto update(Long id, UpdateBookRequestDto requestDto) {
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+
+        existingBook.setTitle(requestDto.getTitle());
+        existingBook.setAuthor(requestDto.getAuthor());
+        existingBook.setIsbn(requestDto.getIsbn());
+        existingBook.setPrice(requestDto.getPrice());
+        existingBook.setDescription(requestDto.getDescription());
+        existingBook.setCoverImage(requestDto.getCoverImage());
+
+        Book updatedBook = bookRepository.save(existingBook);
+        return bookMapper.toDto(updatedBook);
+    }
+
 }
+
