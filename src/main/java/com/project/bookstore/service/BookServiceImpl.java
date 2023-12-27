@@ -1,11 +1,11 @@
 package com.project.bookstore.service;
 
+import com.project.bookstore.exception.EntityNotFoundException;
 import com.project.bookstore.mapper.BookMapper;
 import com.project.bookstore.model.Book;
 import com.project.bookstore.model.dto.BookDto;
 import com.project.bookstore.model.dto.CreateBookRequestDto;
 import com.project.bookstore.repository.BookRepository;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,32 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        Book book = bookRepository.findBookById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book", id));
         return bookMapper.toDto(book);
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Book", id));
+
+        book.setDeleted(true);
+
+        bookRepository.save(book);
+    }
+
+    @Override
+    public BookDto updateBook(Long id, CreateBookRequestDto updateBookRequestDto) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() ->
+                        new com.project.bookstore.exception.EntityNotFoundException("Book", id));
+
+        book.setTitle(updateBookRequestDto.getTitle());
+        book.setAuthor(updateBookRequestDto.getAuthor());
+
+        Book updatedBook = bookRepository.save(book);
+
+        return bookMapper.toDto(updatedBook);
     }
 }
