@@ -1,7 +1,6 @@
 package com.project.bookstore.controller;
 
 import com.project.bookstore.model.dto.BookDto;
-import com.project.bookstore.model.dto.BookSearchParametersDto;
 import com.project.bookstore.model.dto.CreateBookRequestDto;
 import com.project.bookstore.service.BookService;
 import java.util.List;
@@ -50,10 +49,5 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/search")
-    public List<BookDto> search(BookSearchParametersDto searchParameters) {
-        return bookService.search(searchParameters);
     }
 }
