@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Entity
-@Data
 @Table(name = "books")
+@Data
 public class Book {
 
     @Id
@@ -30,9 +30,12 @@ public class Book {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column
+    @Column(nullable = false)
     private String description;
 
-    @Column
+    @Column(nullable = false)
     private String coverImage;
+
+    @Column(columnDefinition = "false")
+    private boolean isDeleted;
 }

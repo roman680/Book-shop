@@ -1,5 +1,6 @@
 package com.project.bookstore.model.dto;
 
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
@@ -8,7 +9,7 @@ public class BookDto {
     private String title;
     private String author;
     private String isbn;
-    private double price;
+    private BigDecimal price;
     private String description;
     private String coverImage;
 }
