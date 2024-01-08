@@ -1,23 +1,27 @@
 package com.project.bookstore.model.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import org.hibernate.validator.constraints.ISBN;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 public class CreateBookRequestDto {
-    @NotNull
+    @NotBlank
     private String title;
-    @NotNull
+    @NotBlank
     private String author;
-    @NotNull
+    @NotBlank
     @ISBN
     private String isbn;
-    @NotNull
-    @Min(0)
+    @NotBlank
+    @PositiveOrZero
     private BigDecimal price;
+    @NotBlank
+    @Length(max = 2000)
     private String description;
+    @NotBlank
     private String coverImage;
 }
