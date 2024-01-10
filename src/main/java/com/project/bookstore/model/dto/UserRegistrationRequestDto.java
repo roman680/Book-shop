@@ -17,8 +17,6 @@ public class UserRegistrationRequestDto {
     @Size(max = 20, message = "Password should not exceed 20 characters")
     private String password;
 
-    @NotBlank(message = "Repeated password should not be empty")
-    @Size(max = 20, message = "Repeated password should not exceed 20 characters")
     private String repeatPassword;
 
     @NotBlank(message = "First name should not be empty")
