@@ -1,8 +1,9 @@
-package com.project.bookstore.model.dto;
+package com.project.bookstore.model.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.Set;
 import lombok.Data;
 import org.hibernate.validator.constraints.ISBN;
 import org.hibernate.validator.constraints.Length;
@@ -24,4 +25,5 @@ public class CreateBookRequestDto {
     private String description;
     @NotBlank
     private String coverImage;
+    private Set<Long> categoryIds;
 }

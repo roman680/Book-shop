@@ -1,7 +1,7 @@
 package com.project.bookstore.search.book;
 
 import com.project.bookstore.model.Book;
-import com.project.bookstore.model.dto.BookSearchParametersDto;
+import com.project.bookstore.model.dto.book.BookSearchParametersDto;
 import com.project.bookstore.search.SpecificationBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
