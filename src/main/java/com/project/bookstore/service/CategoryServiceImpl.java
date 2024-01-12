@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    public static final String CANNOT_FIND_CATEGORY_BY_ID_MSG =
-            "Cannot find the category with this id: ";
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
 
@@ -30,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id)
                 .map(categoryMapper::toDto)
                 .orElseThrow(
-                        () -> new EntityNotFoundException(CANNOT_FIND_CATEGORY_BY_ID_MSG + id));
+                        () -> new EntityNotFoundException("Cannot find the category with this id:" + id));
     }
 
     @Override
@@ -44,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto updateById(Long id, CategoryRequestDto requestDto) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(
-                        () -> new EntityNotFoundException(CANNOT_FIND_CATEGORY_BY_ID_MSG + id));
+                        () -> new EntityNotFoundException("Cannot find the category with this id:" + id));
         category.setDescription(requestDto.getDescription());
         category.setName(requestDto.getName());
         return categoryMapper.toDto(categoryRepository.save(category));
