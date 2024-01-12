@@ -1,4 +1,4 @@
-package com.project.bookstore.model.dto;
+package com.project.bookstore.model.dto.user;
 
 import com.project.bookstore.validator.PasswordFieldsMatch;
 import jakarta.validation.constraints.NotBlank;

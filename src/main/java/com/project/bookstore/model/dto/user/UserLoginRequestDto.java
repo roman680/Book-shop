@@ -1,4 +1,4 @@
-package com.project.bookstore.model.dto;
+package com.project.bookstore.model.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

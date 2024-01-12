@@ -1,8 +1,8 @@
 package com.project.bookstore.mapper;
 
 import com.project.bookstore.model.User;
-import com.project.bookstore.model.dto.UserRegistrationRequestDto;
-import com.project.bookstore.model.dto.UserResponseDto;
+import com.project.bookstore.model.dto.user.UserRegistrationRequestDto;
+import com.project.bookstore.model.dto.user.UserResponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

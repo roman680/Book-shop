@@ -1,10 +1,10 @@
 package com.project.bookstore.controller;
 
 import com.project.bookstore.exception.RegistrationException;
-import com.project.bookstore.model.dto.UserLoginRequestDto;
-import com.project.bookstore.model.dto.UserLoginResponseDto;
-import com.project.bookstore.model.dto.UserRegistrationRequestDto;
-import com.project.bookstore.model.dto.UserResponseDto;
+import com.project.bookstore.model.dto.user.UserLoginRequestDto;
+import com.project.bookstore.model.dto.user.UserLoginResponseDto;
+import com.project.bookstore.model.dto.user.UserRegistrationRequestDto;
+import com.project.bookstore.model.dto.user.UserResponseDto;
 import com.project.bookstore.security.jwt.AuthenticationService;
 import com.project.bookstore.service.UserService;
 import jakarta.validation.Valid;

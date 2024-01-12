@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles-for-users
+      author: roman-denysiuk
+      preConditions:
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM users WHERE email='admin@gmail.com'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM roles WHERE name='ADMIN'
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE email='admin@gmail.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE name='ADMIN')
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE email='user@gmail.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE name='USER')
