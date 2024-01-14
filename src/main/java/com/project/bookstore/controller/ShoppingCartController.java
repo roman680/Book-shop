@@ -66,7 +66,7 @@ public class ShoppingCartController {
             description = "Changes the number of books in a shopping cart")
     public ShoppingCartResponseDto updateCartItem(
             @PathVariable Long cartItemId,
-            @RequestBody CartItemsUpdateDto updateDto,
+            @RequestBody @Valid CartItemsUpdateDto updateDto,
             Authentication authentication
     ) {
         User user = (User) authentication.getPrincipal();
