@@ -27,9 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private static final String CANNOT_FIND_CART_BY_USER_ID_MSG = "Cannot find cart by user ID: ";
-    private static final String CANNOT_FIND_ORDER_BY_ID_MSG = "Cannot find order by ID: ";
-    private static final String CANNOT_FIND_USER_BY_ID_MSG = "Cannot find user by ID: ";
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
@@ -49,11 +46,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto createOrder(OrderRequestDto requestDto, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(
-                        () -> new EntityNotFoundException(CANNOT_FIND_USER_BY_ID_MSG + userId));
+                        () -> new EntityNotFoundException("Can`t find user by id:" + userId));
         ShoppingCart shoppingCartFromDB = shoppingCartRepository.findByUserId(user.getId())
                 .orElseThrow(
                         () -> new EntityNotFoundException(
-                                CANNOT_FIND_CART_BY_USER_ID_MSG + user.getId()));
+                                "Can`t find cart by user with id:" + user.getId()));
         Order order = new Order();
         BigDecimal total = shoppingCartFromDB.getCartItems().stream()
                 .map(c -> c.getBook().getPrice().multiply(BigDecimal.valueOf(c.getQuantity())))
@@ -73,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto updateStatus(Long id, OrderStatusRequestDto requestDto) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(
-                        () -> new EntityNotFoundException(CANNOT_FIND_ORDER_BY_ID_MSG + id));
+                        () -> new EntityNotFoundException("Can`t find order by id:" + id));
         order.setStatus(requestDto.status());
         return orderMapper.toResponseDto(orderRepository.save(order));
     }
