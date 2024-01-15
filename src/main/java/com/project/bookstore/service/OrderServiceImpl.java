@@ -11,6 +11,7 @@ import com.project.bookstore.model.dto.order.OrderItemResponseDto;
 import com.project.bookstore.model.dto.order.OrderRequestDto;
 import com.project.bookstore.model.dto.order.OrderResponseDto;
 import com.project.bookstore.model.dto.order.OrderStatusRequestDto;
+import com.project.bookstore.repository.CartItemRepository;
 import com.project.bookstore.repository.OrderItemRepository;
 import com.project.bookstore.repository.OrderRepository;
 import com.project.bookstore.repository.ShoppingCartRepository;
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final OrderItemRepository orderItemRepository;
     private final UserRepository userRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public List<OrderResponseDto> getAllOrders(Long userId) {
@@ -61,7 +63,8 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(total);
         orderRepository.save(order);
         Set<CartItem> cartItems = shoppingCartFromDB.getCartItems();
-        order.setOrderItems(setOrderItems(cartItems, order));
+        cartItemRepository.deleteAll(shoppingCartFromDB.getCartItems());
+        setOrderItems(cartItems, order);
         return orderMapper.toResponseDto(orderRepository.save(order));
     }
 
