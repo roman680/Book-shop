@@ -1,5 +1,6 @@
 package com.project.bookstore.mapper;
 
+import com.project.bookstore.config.MapperConfig;
 import com.project.bookstore.model.Book;
 import com.project.bookstore.model.Category;
 import com.project.bookstore.model.dto.book.BookDto;
@@ -11,7 +12,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(config = MapperConfig.class)
 public interface BookMapper {
     @Mapping(target = "categoryIds", ignore = true)
     BookDto toDto(Book book);
