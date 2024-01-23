@@ -7,16 +7,18 @@ databaseChangeLog:
             tableName: users_roles
             columns:
               - column:
-                  name: user_id
-                  type: bigint
-                  constraints:
-                    primaryKey: true
-                    references: users(id)
-                    foreignKeyName: fk_users_roles_user_id
-              - column:
                   name: role_id
                   type: bigint
                   constraints:
-                    primaryKey: true
                     references: roles(id)
+                    deleteCascade: true
+                    primaryKey: true
                     foreignKeyName: fk_users_roles_role_id
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    references: users(id)
+                    deleteCascade: true
+                    primaryKey: true
+                    foreignKeyName: fk_users_roles_user_id
