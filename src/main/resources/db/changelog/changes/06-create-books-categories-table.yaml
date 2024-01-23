@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-books_categories-table
+      id: create-books-categories-table
       author: roman-denysiuk
       changes:
         - createTable:
@@ -10,17 +10,15 @@ databaseChangeLog:
                   name: book_id
                   type: bigint
                   constraints:
-                    nullable: false
-                    primaryKey: true
-                    deleteCascade: true
-                    foreignKeyName: fk_books_categories_book
                     references: books(id)
+                    deleteCascade: true
+                    primaryKey: true
+                    foreignKeyName: fk_books-categories_book_id
               - column:
                   name: category_id
                   type: bigint
                   constraints:
-                    nullable: false
-                    primaryKey: true
-                    deleteCascade: true
-                    foreignKeyName: fk_books_categories_category
                     references: categories(id)
+                    deleteCascade: true
+                    primaryKey: true
+                    foreignKeyName: fk_books-categories_category_id
