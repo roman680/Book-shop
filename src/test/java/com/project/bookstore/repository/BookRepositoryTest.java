@@ -20,9 +20,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 @Sql(scripts = {
-        "classpath:/db/categories/insert-categories.sql",
-        "classpath:/db/book/insert-book.sql",
-        "classpath:/db/categories/insert-book-categories.sql"
+        "classpath:db/categories/insert-categories.sql",
+        "classpath:db/book/insert-book.sql",
+        "classpath:db/categories/insert-book-categories.sql"
 }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = {
         "classpath:db/book/delete-book.sql",
