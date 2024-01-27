@@ -10,16 +10,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.bookstore.model.dto.category.CategoryDto;
+import com.project.bookstore.model.dto.category.CategoryRequestDto;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.sql.DataSource;
-import com.project.bookstore.model.dto.category.CategoryDto;
-import com.project.bookstore.model.dto.category.CategoryRequestDto;
 import lombok.SneakyThrows;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
