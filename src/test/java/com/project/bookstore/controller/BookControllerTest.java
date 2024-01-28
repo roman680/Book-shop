@@ -34,7 +34,7 @@ class BookControllerTest {
     }
 
     @Test
-    void testGetAll() {
+    void getAll_WhenBooksExist_ReturnListOfBooks() {
         List<BookDto> books = Arrays.asList(new BookDto(), new BookDto());
         when(bookService.findAll(any(Pageable.class))).thenReturn(books);
 
@@ -45,7 +45,7 @@ class BookControllerTest {
     }
 
     @Test
-    void testGetBookById() {
+    void getBookById_GivenValidId_ReturnBook() {
         long bookId = 1L;
         BookDto bookDto = new BookDto();
         when(bookService.getBookById(bookId)).thenReturn(bookDto);
@@ -57,7 +57,7 @@ class BookControllerTest {
     }
 
     @Test
-    void testCreateBook() {
+    void createBook_WhenValidRequest_ExpectNewBookCreated() {
         CreateBookRequestDto createBookRequestDto = new CreateBookRequestDto();
         BookDto bookDto = new BookDto();
         when(bookService.save(createBookRequestDto)).thenReturn(bookDto);
@@ -69,7 +69,7 @@ class BookControllerTest {
     }
 
     @Test
-    void testUpdateBook() {
+    void updateBook_WhenValidIdAndRequest_ExpectBookUpdated() {
         long bookId = 1L;
         CreateBookRequestDto createBookRequestDto = new CreateBookRequestDto();
         BookDto bookDto = new BookDto();
@@ -82,7 +82,7 @@ class BookControllerTest {
     }
 
     @Test
-    void testDeleteBook() {
+    void deleteBook_GivenValidId_DeleteBook() {
         long bookId = 1L;
         ResponseEntity<Void> expectedResponse = ResponseEntity.noContent().build();
 

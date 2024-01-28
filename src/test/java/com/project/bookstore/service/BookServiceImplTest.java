@@ -177,7 +177,7 @@ class BookServiceImplTest {
 
     @Test
     @DisplayName("Save a new book and return its DTO")
-    void save() {
+    void save_NewBook_ReturnsDto() {
         when(bookMapper.toEntity(theGreatGatsbyBookRequestDto))
                 .thenReturn(theGreatGatsbyWithoutId);
         when(bookRepository.save(theGreatGatsbyWithoutId))
@@ -193,7 +193,7 @@ class BookServiceImplTest {
 
     @Test
     @DisplayName("Return 2 bookdtos mapped from books that were returned from the DB")
-    void findAll_ExistingBooks_ReturnListOf2Books() {
+    void findAll_ExistingBooks_ReturnsListOfBooks() {
         Page<Book> page = new PageImpl<>(bookList, pageable, bookList.size());
         when(bookRepository.findAll(pageable)).thenReturn(page);
         when(bookMapper.toDto(theGreatGatsbyBook)).thenReturn(theGreatGatsbyBookDto);
@@ -209,7 +209,7 @@ class BookServiceImplTest {
 
     @Test
     @DisplayName("Return bookdto mapped from book that was found in DB by id")
-    void findById_WithValidId_ReturnBookDto() {
+    void findById_WithValidId_ReturnsBookDto() {
         BookDto expected = vanityFairBookDto;
         when(bookRepository.findById(validId)).thenReturn(Optional.of(vanityFairBook));
         when(bookMapper.toDto(vanityFairBook)).thenReturn(vanityFairBookDto);
@@ -220,7 +220,7 @@ class BookServiceImplTest {
 
     @Test
     @DisplayName("Throw EntityNotFoundException when trying to find a book by invalid id")
-    void findById_WithInvalidId_ThrowException() {
+    void findById_WithInvalidId_ThrowsException() {
         when(bookRepository.findById(invalidId))
                 .thenThrow(new EntityNotFoundException("Cannot find book by id: " + invalidId));
         Assertions.assertThrows(
@@ -242,7 +242,7 @@ class BookServiceImplTest {
     @DisplayName("""
             Return dto of the book that was located an updated using its id and requestDto
             """)
-    void updateById_WithValidId_UpdateBook() {
+    void updateById_WithValidId_UpdatesBook() {
         when(bookRepository.existsById(validId2))
                 .thenReturn(true);
         when(bookMapper.toEntity(vanityFairBookRequestDtoUpdated))
@@ -259,7 +259,7 @@ class BookServiceImplTest {
 
     @Test
     @DisplayName("Throw an exception when trying to update book by non-existing id")
-    void updateById_WithInvalidId_ThrowException() {
+    void updateById_WithInvalidId_ThrowsException() {
         when(bookRepository.existsById(invalidId))
                 .thenThrow(new EntityNotFoundException("Cannot find book by id: " + invalidId));
         Assertions.assertThrows(
@@ -270,7 +270,7 @@ class BookServiceImplTest {
     @DisplayName("""
     Return a list of BookDtoWithoutCategoryIds based on the provided category id
                 """)
-    void getBooksByCategoryId() {
+    void getBooksByCategoryId_ReturnsList() {
         List<Book> booksFromCategoryOne = new ArrayList<>();
         booksFromCategoryOne.add(theGreatGatsbyBook);
         when(bookRepository.findAllByCategoryId(categoryOne.getId()))

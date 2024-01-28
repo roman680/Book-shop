@@ -44,13 +44,13 @@ class BookRepositoryTest {
     }
 
     @Test
-    void findAllByCategoryId() {
+    void findAllByCategoryId_StateWithCategoryId_ReturnsListOfBooks() {
         List<Book> actual = bookRepository.findAllByCategoryId(1L);
         assertEquals(expectedList.size(), actual.size());
     }
 
     @Test
-    void findById() {
+    void findById_StateWithValidId_ReturnsBook() {
         Optional<Book> actual = bookRepository.findById(1L);
         assertEquals(expectedList.get(0), actual.get());
     }
