@@ -54,7 +54,8 @@ public class Book {
     )
     private Set<Category> categories = new HashSet<>();
 
-    public Book(Long id, String title, String author, String isbn, BigDecimal price, String description, String coverImage, boolean isDeleted) {
+    public Book(Long id, String title, String author, String isbn, BigDecimal price,
+                String description, String coverImage, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.author = author;
