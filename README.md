@@ -20,7 +20,7 @@ Welcome to the Bookshop project! This application has been developed to streamli
 
 ### Spring Framework
 
-- Spring Boot 🥾
+- Spring Boot 🌱
 - Spring Data JPA 📦
 - Spring Boot Security 🔒
 - Spring Boot Validation ✅
